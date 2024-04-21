@@ -14,6 +14,9 @@ A DRL-based handover management algorithm designed to minimize latency in 5G com
 3. xlsxwriter
 4. matplotlib
 
+## Install Dependencies
+```pip install -r requirements.txt```
+
 ## Environment
 There are two environments in this project. In the first environment, there are only two 5G stations; in the second environment, there are sixteen stations arranged in a square matrix.
 
