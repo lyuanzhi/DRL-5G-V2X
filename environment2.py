@@ -2,7 +2,7 @@ import numpy as np
 import math
 
 
-class Environment:
+class Environment2:
     ht = 30
     hr = 1
     num_of_eNBs = 16
