@@ -15,17 +15,18 @@ parser.add_argument('-t', '--type', required=True, type=str, help='"DQN" or "PPO
 parser.add_argument('-e', '--env', required=True, type=str, help='"2" or "16"')
 args = parser.parse_args()
 
-EPOCH = 300
 if args.env == "2":
     num_of_points_measured = 6300
     env = Environment2(num_of_points_measured)
     N_STATES = 3
     N_ACTIONS = 2
+    EPOCH = 100
 if args.env == "16":
     num_of_points_measured = 4000
     env = Environment16(num_of_points_measured)
     N_STATES = 5
     N_ACTIONS = 16
+    EPOCH = 200
 
 def train(type):
     print("training")
@@ -34,11 +35,11 @@ def train(type):
     S = [0]
     X = [0]
     if type == "DQN":
-        agent = DQN(N_STATES, N_ACTIONS, hidden_dim=512, explore_intensity=25, replay_capacity=20000, replay_batch_size=128, target_update_freq=100)
+        agent = DQN(N_STATES, N_ACTIONS, hidden_dim=64, explore_intensity=25, replay_capacity=20000, replay_batch_size=128, target_update_freq=100)
     if type == "PPO":
-        agent = PPO(N_STATES, N_ACTIONS, hidden_dim=512)
+        agent = PPO(N_STATES, N_ACTIONS, hidden_dim=64)
     if type == "PG":
-        agent = PG(N_STATES, N_ACTIONS, hidden_dim=512)
+        agent = PG(N_STATES, N_ACTIONS, hidden_dim=64)
     for i in range(EPOCH):
         s = env.first_state()
         time_in_episode = 0

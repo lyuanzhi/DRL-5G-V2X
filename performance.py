@@ -101,4 +101,4 @@ class Performance:
         data.to_excel(writer, 'num_of_HOPP', float_format='%.5f')
         data = pd.DataFrame([self.latency])
         data.to_excel(writer, 'latency', float_format='%.5f')
-        writer.save()
+        writer._save()
