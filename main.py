@@ -4,7 +4,9 @@ import xlsxwriter
 from performance import Performance
 import matplotlib.pyplot as plt
 import pandas as pd
-import DRL
+from DRL.ppo import PPO
+from DRL.pg import PG
+from DRL.dqn import DQN
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -32,11 +34,11 @@ def train(type):
     S = [0]
     X = [0]
     if type == "DQN":
-        agent = DRL.dqn.DQN(N_STATES, N_ACTIONS, hidden_dim=512, explore_intensity=25, replay_capacity=20000, replay_batch_size=128, target_update_freq=100)
+        agent = DQN(N_STATES, N_ACTIONS, hidden_dim=512, explore_intensity=25, replay_capacity=20000, replay_batch_size=128, target_update_freq=100)
     if type == "PPO":
-        agent = DRL.ppo.PPO(N_STATES, N_ACTIONS, hidden_dim=512)
+        agent = PPO(N_STATES, N_ACTIONS, hidden_dim=512)
     if type == "PG":
-        agent = DRL.pg.PG(N_STATES, N_ACTIONS, hidden_dim=512)
+        agent = PG(N_STATES, N_ACTIONS, hidden_dim=512)
     for i in range(EPOCH):
         s = env.first_state()
         time_in_episode = 0
@@ -76,11 +78,11 @@ def test_once(type):
     time_in_episode = 0
     ep_r = 0
     if type == "DQN":
-        agent = DRL.dqn.DQN(N_STATES, N_ACTIONS, is_train=False, is_load=True)
+        agent = DQN(N_STATES, N_ACTIONS, is_train=False, is_load=True)
     if type == "PPO":
-        agent = DRL.ppo.PPO(N_STATES, N_ACTIONS, is_train=False, is_load=True)
+        agent = PPO(N_STATES, N_ACTIONS, is_train=False, is_load=True)
     if type == "PG":
-        agent = DRL.pg.PG(N_STATES, N_ACTIONS, is_train=False, is_load=True)
+        agent = PG(N_STATES, N_ACTIONS, is_train=False, is_load=True)
     while True:
         a = agent.select_action(s)
         s_, r, d = env.step(a, time_in_episode)
@@ -105,11 +107,11 @@ def test_average(type):
     Sum_latency = 0
     Sum_ep_r = 0
     if type == "DQN":
-        agent = DRL.dqn.DQN(N_STATES, N_ACTIONS, is_train=False, is_load=True)
+        agent = DQN(N_STATES, N_ACTIONS, is_train=False, is_load=True)
     if type == "PPO":
-        agent = DRL.ppo.PPO(N_STATES, N_ACTIONS, is_train=False, is_load=True)
+        agent = PPO(N_STATES, N_ACTIONS, is_train=False, is_load=True)
     if type == "PG":
-        agent = DRL.pg.PG(N_STATES, N_ACTIONS, is_train=False, is_load=True)
+        agent = PG(N_STATES, N_ACTIONS, is_train=False, is_load=True)
     
     for i in range(10):
         s = env.first_state()
@@ -161,11 +163,11 @@ def get_data_set(type):
     print("getting data set")
     dataSet = []
     if type == "DQN":
-        agent = DRL.dqn.DQN(N_STATES, N_ACTIONS, is_train=False, is_load=True)
+        agent = DQN(N_STATES, N_ACTIONS, is_train=False, is_load=True)
     if type == "PPO":
-        agent = DRL.ppo.PPO(N_STATES, N_ACTIONS, is_train=False, is_load=True)
+        agent = PPO(N_STATES, N_ACTIONS, is_train=False, is_load=True)
     if type == "PG":
-        agent = DRL.pg.PG(N_STATES, N_ACTIONS, is_train=False, is_load=True)
+        agent = PG(N_STATES, N_ACTIONS, is_train=False, is_load=True)
     for _ in range(4):
         s = env.first_state()
         time_in_episode = 0
